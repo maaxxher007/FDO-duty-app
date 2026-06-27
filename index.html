@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FDO Duties Sheet</title>
+    <meta name="description" content="Excel-style invigilation sheet with editable cells, randomization, import, export, and print support." />
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="board.css" />
+    <script defer src="board.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <h1>Invigilation Duties for Admission Tests Fall 2026</h1>
+        <p>Editable workbook-style sheet with one invigilator per session, fixed FDOs, and XLSX import/export.</p>
+      </header>
+
+      <div class="toolbar">
+        <button id="randomizeBtn">Shuffle duties</button>
+        <label class="toolbar-select-label">
+          Shuffle mode
+          <select id="shuffleModeSelect">
+            <option value="same">Session 1 and 3 same</option>
+            <option value="alternate">Session 1 and 3 same, session 2 different</option>
+            <option value="first-two">Session 1 and 2 same, session 3 different</option>
+            <option value="all-different">All sessions different</option>
+            <option value="all-random">Shuffle all sessions</option>
+            <option value="fixed">Fixed in all sessions</option>
+          </select>
+        </label>
+        <button id="restoreBtn">Restore workbook result</button>
+        <button id="clearSheetBtn">Clear spreadsheet</button>
+        <button id="importBtn">Upload XLSX</button>
+        <input id="xlsxInput" type="file" accept=".xlsx,.xls" hidden />
+        <button id="exportBtn">Export XLSX</button>
+        <button id="printBtn">Print</button>
+        <div class="status" id="statusText">Loading sheet...</div>
+      </div>
+
+      <div class="growth-bar date-bar">
+        <label>
+          Date heading
+          <input id="dateHeadingInput" type="text" placeholder="Monday, June 29, 2026" />
+        </label>
+      </div>
+
+      <div class="fixed-bar">
+        <label>
+          Fixed duty
+          <select id="fixedRowSelect"></select>
+        </label>
+        <label>
+          Fixed name
+          <input id="fixedNameInput" type="text" placeholder="Type the name to lock" />
+        </label>
+        <button id="fixRowBtn">Fix duty</button>
+        <button id="clearFixedBtn">Unlock duty</button>
+      </div>
+
+      <div class="growth-bar">
+        <label>
+          New duty place
+          <input id="addRowPlace" type="text" placeholder="Example: Auditorium" />
+        </label>
+        <label>
+          Color band
+          <select id="addRowBand">
+            <option value="neutral">Neutral</option>
+            <option value="green">Emails / green</option>
+            <option value="blue">Fixed blue</option>
+            <option value="purple">Admissions / purple</option>
+            <option value="lab-a">Lab A</option>
+            <option value="lab-b">Lab B</option>
+          </select>
+        </label>
+        <label>
+          Shuffle pattern
+          <select id="addPattern">
+            <option value="same">Session 1 and 3 same</option>
+            <option value="alternate">Session 1 and 3 same, session 2 different</option>
+            <option value="first-two">Session 1 and 2 same, session 3 different</option>
+            <option value="all-different">All sessions different</option>
+            <option value="all-random">Shuffle all sessions</option>
+            <option value="fixed">Fixed in all sessions</option>
+          </select>
+        </label>
+        <label>
+          Fixed FDO name
+          <input id="addFixedName" type="text" placeholder="Optional fixed name" />
+        </label>
+        <button id="addRowBtn">Add row</button>
+      </div>
+
+      <section class="sheet-card">
+        <div class="sheet-scroll" id="sheetRoot"></div>
+      </section>
+
+      <section class="note-row">
+        <label for="noteInput">Round note</label>
+        <textarea id="noteInput" placeholder="Optional note for this allocation round"></textarea>
+      </section>
+
+      <section class="legend-card">
+        <div class="legend-grid" id="legendRoot"></div>
+      </section>
+    </div>
+  </body>
+</html>
